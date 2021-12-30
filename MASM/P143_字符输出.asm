@@ -1,12 +1,12 @@
-;;  ‰≥ˆ»˝–– 'welcome to masm!'
-;; ≤ªÕ¨—’…´ 
-;; «∞   ∫Û   …´
+;; ËæìÂá∫‰∏âË°å 'welcome to masm!'
+;; ‰∏çÂêåÈ¢úËâ≤ 
+;; Ââç   Âêé   Ëâ≤
 ;; 0000 0000
 ;;  rgb  rgb
 assume cs:code, ds:data
 
 data segment
-                  ; '1234567890ABCDEF'              
+                ;   '1234567890ABCDEF'              
     str         db  'welcome to masm!'    
     green       db  00000010b
     gbg_rtxt    db  00100100b
@@ -22,14 +22,15 @@ code segment
         mov ax, 0b800h
         mov es, ax
         ; pos. of text.
-        mov bx, 0    
+        mov bx, 160 * 6    
         
         mov cx, 16
         mov si, 0
 
     show_row:                  
-        ; set text.            
-        mov dl, str:[si]
+        ; set text.
+        ; mov dl, str:[si]
+        mov dl, ds:[si]
         ; set color                               
         mov dh, green
         mov es:[bx], dx
@@ -37,13 +38,14 @@ code segment
         inc si
         loop show_row
               
-        mov bx, 160      
+        mov bx, 160 * 7    
         mov cx, 16
         mov si, 0
         
     show_row2:                  
-        ; set text.            
-        mov dl, str:[si]
+        ; set text.       
+        ; mov dl, str:[si]     
+        mov dl, ds:[si]
         ; set color                               
         mov dh, gbg_rtxt
         mov es:[bx], dx
@@ -51,13 +53,14 @@ code segment
         inc si
         loop show_row2
                        
-        mov bx, 160 + 160      
+        mov bx, 160 * 8      
         mov cx, 16
         mov si, 0
         
     show_row3:                  
-        ; set text.            
-        mov dl, str:[si]
+        ; set text.     
+        ; mov dl, str:[si]       
+        mov dl, ds:[si]
         ; set color                               
         mov dh, wbg_btxt
         mov es:[bx], dx
@@ -72,5 +75,3 @@ code segment
 code ends
 
 end start
-
-  
